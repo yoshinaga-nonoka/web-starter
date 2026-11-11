@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja" data-proposal="site/d">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>サイト全体のデザイン案 D「縦書きの見出し」｜【要差し替え】サンプル食堂</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/media/logo.svg" type="image/svg+xml">
+<!-- 生成ファイル: design/site/d.mjs を直して npm run design -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500&family=Zen+Kaku+Gothic+New:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>:root {
+  --bg: #faf6f0; --surface: #f0e8dc; --ink: #2f2a24; --muted: #6f655a;
+  --accent: #a4532a; --accent-ink: #ffffff; --inv-bg: #2f2a24; --inv-ink: #faf6f0;
+  --font-display: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif; --font-text: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-en: "Cormorant Garamond", "Times New Roman", serif; --radius: 16px;
+}</style>
+<link rel="stylesheet" href="/css/site.css">
+<style>
+
+.mv-a { padding: calc(var(--nav) + var(--s-8)) 0 var(--s-9); min-height: min(100svh, 980px); display: grid; align-items: center; }
+.mv-a__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--s-8); align-items: center; }
+.mv-a__eyebrow { color: var(--accent); font-size: var(--t-small); letter-spacing: .14em; margin-bottom: var(--s-4); }
+.mv-a h1 { font-size: var(--t-h1); line-height: 1.3; letter-spacing: .06em; }
+.mv-a__lead { margin: var(--s-6) 0 var(--s-7); color: var(--muted); font-size: var(--t-lead); }
+.mv-a__art { justify-self: end; width: min(100%, 520px); position: relative; }
+.mv-a__art .frame { border-radius: 999px 999px var(--radius) var(--radius); aspect-ratio: 4 / 5; }
+.mv-a__art::before { content: ""; position: absolute; inset: -18px -18px 18px 18px; border: 1px solid var(--accent); border-radius: 999px 999px var(--radius) var(--radius); opacity: .4; }
+@media (max-width: 959px) { .mv-a__grid { grid-template-columns: minmax(0, 1fr); } .mv-a__art { justify-self: center; width: min(100%, 420px); } }
+@media (max-width: 639px) { .mv-a { min-height: 0; padding: calc(var(--nav) + var(--s-6)) 0 var(--s-8); } .mv-a__art { order: -1; width: min(100% - 24px, 300px); } .mv-a .btn--primary { display: none; } }
+
+
+.sd { padding: var(--s-10) 0; }
+.sd__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-8); }
+.sd__v { writing-mode: vertical-rl; font-family: var(--font-display); font-size: clamp(36px, 4.4vw, 60px); letter-spacing: .18em; line-height: 1.2; }
+.sd__v small { display: block; font-family: var(--font-en); font-style: italic; font-size: 18px; letter-spacing: .04em; color: var(--accent); margin-inline-start: var(--s-3); }
+.sd__news li { display: grid; grid-template-columns: 7em minmax(0, 1fr); gap: var(--s-5); padding: var(--s-5) 0; border-bottom: 1px solid var(--line); }
+.sd__news time { font-family: var(--font-en); font-size: 22px; color: var(--accent); line-height: 1.4; }
+.sd__menu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); }
+.sd__menu .frame { aspect-ratio: 3 / 4; border-radius: 0; margin-bottom: var(--s-4); }
+.sd__menu h3 { font-size: var(--t-h3); }
+.sd__menu p { color: var(--muted); font-size: var(--t-small); }
+.sd--band { background: var(--inv-bg); color: var(--inv-ink); --ink: var(--inv-ink); --muted: color-mix(in srgb, var(--inv-ink) 70%, transparent); --line: color-mix(in srgb, var(--inv-ink) 18%, transparent); }
+.sd--band .sd__v small { color: var(--inv-ink); opacity: .7; }
+.sd__about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-8); align-items: center; }
+.sd__about h3 { font-size: var(--t-h2); line-height: 1.6; margin-bottom: var(--s-5); }
+.sd__about .frame { aspect-ratio: 4 / 5; }
+.sd__access .sd__big { font-family: var(--font-en); font-size: clamp(56px, 9vw, 128px); line-height: 1; letter-spacing: -.01em; }
+.sd__access p { font-size: var(--t-lead); margin-top: var(--s-4); }
+@media (max-width: 959px) { .sd__menu, .sd__about { grid-template-columns: minmax(0, 1fr); } .sd__menu { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  .sd { padding: var(--s-8) 0; }
+  .sd__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+  .sd__v { writing-mode: horizontal-tb; order: -1; font-size: 32px; letter-spacing: .08em; }
+  .sd__v small { display: inline; margin: 0 0 0 var(--s-3); }
+  .sd__menu { grid-template-columns: minmax(0, 1fr); }
+  .sd__news li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
+
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap nav__bar"><a class="skip" href="#main">本文へ移動</a><a class="nav__logo" href="/" aria-label="【要差し替え】サンプル食堂 トップへ"><img src="/media/logo.svg" alt="" width="40" height="40">【要差し替え】サンプル食堂</a><nav class="nav__links" id="nav-links" aria-label="メイン"><a class="nav__link" href="#news" data-section="news"><svg class="icon icon--bell" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg><span class="nav__en" lang="en">News</span><span class="nav__ja">お知らせ</span></a><a class="nav__link" href="#menu" data-section="menu"><svg class="icon icon--utensils" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span class="nav__en" lang="en">Menu</span><span class="nav__ja">メニュー</span></a><a class="nav__link" href="#about" data-section="about"><svg class="icon icon--store" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg><span class="nav__en" lang="en">About</span><span class="nav__ja">お店について</span></a><a class="nav__link" href="#access" data-section="access"><svg class="icon icon--map-pin" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><span class="nav__en" lang="en">Access</span><span class="nav__ja">アクセス</span></a></nav><a class="btn btn--primary nav__action" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%8C%97%E6%B5%B7%E9%81%93%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E3%80%90%E8%A6%81%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%80%91%E5%8C%971%E6%9D%A1%E8%A5%BF1%E4%B8%81%E7%9B%AE1-1" target="_blank" rel="noopener"><svg class="icon icon--map-pin" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Map</a><button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="メニューを開く"><svg class="icon icon--menu nav__open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16"/><path d="M4 17h16"/></svg><svg class="icon icon--x nav__close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div></header>
+<main id="main">
+<section class="mv-a" aria-labelledby="mv-h">
+  <div class="wrap mv-a__grid">
+    <div>
+      <p class="mv-a__eyebrow" data-reveal>【要差し替え】まちの小さな食堂</p>
+      <h1 id="mv-h" data-reveal style="--i: 1"><span class="nw">いつもの、</span><br><span class="nw">ちょうどいい。</span></h1>
+      <p class="mv-a__lead" data-reveal style="--i: 2">【要差し替え】火〜土（日月休み） 11:00〜15:00<br>【要差し替え】地下鉄〇〇線 〇〇駅から徒歩5分</p>
+      <div class="btn-row" data-reveal style="--i: 3"><a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%8C%97%E6%B5%B7%E9%81%93%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E3%80%90%E8%A6%81%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%80%91%E5%8C%971%E6%9D%A1%E8%A5%BF1%E4%B8%81%E7%9B%AE1-1" target="_blank" rel="noopener"><svg class="icon icon--map-pin " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Map</a><a class="btn btn--secondary" href="#menu"><svg class="icon icon--utensils " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>メニューを見る</a></div>
+    </div>
+    <div class="mv-a__art"><img class="frame" src="/media/placeholder-hero.svg" alt="【要差し替え】お店の写真" width="720" height="900" data-reveal="photo"></div>
+  </div>
+</section>
+<section class="sd" id="news" aria-labelledby="news-h"><div class="wrap sd__grid">
+  <ul class="sd__news"><li data-reveal style="--i: 0"><time>2026/11/8</time><a href="/news/sample-hours/">12月の営業日のお知らせ</a></li><li data-reveal style="--i: 1"><time>2026/11/5</time><a href="/news/sample-closed/">11月15日（土）は臨時休業します</a></li><li data-reveal style="--i: 2"><time>2026/10/28</time><a href="/news/sample-long/">とても長いタイトルのお知らせ。見出しが2行や3行になっても、レイアウトが崩れないかを確かめるための見本です</a></li></ul><h2 class="sd__v" id="news-h" data-reveal>お知らせ<small lang="en">News</small></h2>
+</div></section>
+<section class="sd" id="menu" aria-labelledby="menu-h" style="padding-top: 0"><div class="wrap sd__grid">
+  <ul class="sd__menu"><li data-reveal style="--i: 0"><img class="frame" src="/media/placeholder-menu-1.svg" alt="日替わり定食" width="600" height="800" loading="lazy"><h3>日替わり定食</h3><p>季節の野菜をたっぷり使った、毎日変わる定食</p></li><li data-reveal style="--i: 1"><img class="frame" src="/media/placeholder-menu-2.svg" alt="おにぎりセット" width="600" height="800" loading="lazy"><h3>おにぎりセット</h3><p>お味噌汁と小鉢つき</p></li><li data-reveal style="--i: 2"><img class="frame" src="/media/placeholder-menu-3.svg" alt="コーヒー" width="600" height="800" loading="lazy"><h3>コーヒー</h3><p>近所の焙煎所の豆を、一杯ずつ</p></li></ul><h2 class="sd__v" id="menu-h" data-reveal>メニュー<small lang="en">Menu</small></h2>
+</div></section>
+<section class="sd sd--band" id="about" aria-labelledby="about-h"><div class="wrap sd__grid">
+  <div class="sd__about"><img class="frame" src="/media/placeholder-about.svg" alt="お店の様子" width="800" height="1000" loading="lazy" data-reveal="photo"><div><h3 data-reveal>【要差し替え】まちの台所のような場所に</h3><p class="lead" data-reveal>【要差し替え】お店のはじまりや、大事にしていることを2〜3文で。</p><p class="lead" data-reveal>お店の人が話すような言葉で書きます。</p></div></div><h2 class="sd__v" id="about-h" data-reveal>わたしたちについて<small lang="en">About</small></h2>
+</div></section>
+<section class="sd" id="access" aria-labelledby="access-h"><div class="wrap sd__grid">
+  <div class="sd__access" data-reveal><p class="sd__big">11:00〜15:00</p><p>【要差し替え】火〜土（日月休み）</p><p>北海道札幌市中央区【要差し替え】北1条西1丁目1-1 〇〇ビル 1階<br><small>【要差し替え】地下鉄〇〇線 〇〇駅から徒歩5分</small></p><div style="margin-top: var(--s-6)"><a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%8C%97%E6%B5%B7%E9%81%93%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E3%80%90%E8%A6%81%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%80%91%E5%8C%971%E6%9D%A1%E8%A5%BF1%E4%B8%81%E7%9B%AE1-1" target="_blank" rel="noopener"><svg class="icon icon--map-pin " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Googleマップで経路を見る</a></div></div><h2 class="sd__v" id="access-h" data-reveal>営業時間・アクセス<small lang="en">Access</small></h2>
+</div></section>
+</main>
+<footer class="footer"><div class="wrap"><div class="footer__grid"><div class="footer__brand"><a class="nav__logo" href="/"><img src="/media/logo.svg" alt="" width="40" height="40" loading="lazy">【要差し替え】サンプル食堂</a><p class="footer__lede">【要差し替え】まちの小さな食堂</p></div><div class="footer__col"><h4>場所</h4><ul><li class="nums">〒000-0000</li><li>北海道札幌市中央区<br>【要差し替え】北1条西1丁目1-1</li><li>〇〇ビル 1階</li><li>【要差し替え】地下鉄〇〇線 〇〇駅から徒歩5分</li></ul></div><div class="footer__col"><h4>営業</h4><ul><li>【要差し替え】火〜土（日月休み）</li><li class="nums">11:00〜15:00（ラストオーダー 14:30）</li></ul></div><div class="footer__col"><h4>ページ</h4><ul class="footer__pages"><li><a href="#news"><span lang="en">News</span><small>お知らせ</small></a></li><li><a href="#menu"><span lang="en">Menu</span><small>メニュー</small></a></li><li><a href="#about"><span lang="en">About</span><small>わたしたちについて</small></a></li><li><a href="#access"><span lang="en">Access</span><small>営業時間・アクセス</small></a></li></ul></div></div><div class="footer__legal"><span>&copy; 2026 【要差し替え】サンプル食堂</span><button class="motion-toggle" type="button" aria-pressed="false" data-motion-toggle>動きを止める</button></div></div></footer>
+<nav class="actionbar" aria-label="すぐに使う操作"><a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%8C%97%E6%B5%B7%E9%81%93%E6%9C%AD%E5%B9%8C%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E3%80%90%E8%A6%81%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E3%80%91%E5%8C%971%E6%9D%A1%E8%A5%BF1%E4%B8%81%E7%9B%AE1-1" target="_blank" rel="noopener"><svg class="icon icon--map-pin" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Map</a></nav>
+<script defer src="/js/site.js"></script>
+</body>
+</html>

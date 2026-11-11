@@ -24,7 +24,11 @@
    - `src/pages/index.astro`
    - `public/css/site.css`
    - `public/js/site.js`
-2. **案を出す：** 見た目を大きく変えるときは、`design/<テーマ>/` に数案を作る。PCとスマホを並べたボード（静止画）や、動画（動き）にして見せ、選んでもらう。
+2. **案を出す：** 見た目は2段階で決める。
+   1. **メインビジュアル：** `design/mv/` に4案を作る。選ばれた案をブラッシュアップする。
+   2. **サイト全体：** 決まったメインビジュアルのまま、`design/site/` に4案を作る。
+   - `npm run design` で比較ページ（`design/index.html`）を作り、スクショやURL（`npm run design:publish`）で見せて選んでもらう。
+   - 部分的な変更（ローディング、1つのセクションなど）も、同じ仕組みで案を作る。
 3. **組み込む：** 下の「どこに何があるか」に従う。
 4. **確かめる：** 次の点を確かめる。
    - ビルドが通る。
@@ -50,7 +54,7 @@
 | `public/css/site.css`, `public/js/site.js` | デザインと動き。CSSは PC → タブレット → スマホ の順で、スマホを最後に置く |
 | `public/_headers` | セキュリティヘッダーとCSP |
 | `public/media/` | 写真・動画・ロゴ・OGP画像（Web用に縮めたもの） |
-| `design/` | デザイン案、PCとスマホを並べるボード、OGP画像の元 |
+| `design/` | デザイン案（`mv/` メインビジュアル、`site/` サイト全体）、比較ページ、共通の原稿（`content.mjs`）、OGP画像の元。詳しくは `design/README.md` |
 | `tools/` | 確認のツール、お知らせの見本データ、写真と動画の変換 |
 
 ## 確認のツール
@@ -60,7 +64,9 @@
 ```bash
 npm run build:fixture   # お知らせを見本データで作る（microCMSのキーがなくても確認できる）
 npm run serve           # dist を http://127.0.0.1:5481/
-npm run serve:design    # リポジトリを http://127.0.0.1:5482/（design/ の案）
+npm run design          # デザイン案のページ・スクショ・比較ページを作る
+npm run serve:design    # 比較ページを http://127.0.0.1:5482/
+npm run design:publish  # デザイン案を共有用URLに公開（別の Worker。本番には影響しない）
 npm run shot -- <url> [--sizes 1440x900,390x844] [--full] [--scroll "#id"] [--reduced] [--as file.jpg]
 npm run measure -- <url> --expr "<js>" [--sizes 390x844]
 npm run record -- <url> --secs 6 --out .out/motion.mp4

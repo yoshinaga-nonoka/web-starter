@@ -7,7 +7,7 @@
 
 - 開発の流れとルール：`CLAUDE.md`、`.claude/skills/site-dev-flow/`
 - 確認のツール：`tools/`
-- デザイン案の作り方：`design/`
+- デザイン案の作り方：`design/`（メインビジュアル4案 → サイト全体4案。比較ページと共有用URLも作れる）
 - セキュリティとSEO・AEOの初期設定
 
 どの端末でも、Claude Code のクラウドでも、このリポジトリから作ったサイトなら同じ流れで作業できます。
@@ -39,12 +39,21 @@ GitHub の画面から作るときは、このリポジトリの **Use this temp
 
 Claude Code に「このテンプレートで〇〇のサイトを作りたい」と頼めば、`site-dev-flow` の Skill に沿って、聞き取りから公開まで進めます。
 
+## デザイン案
+
+見た目は2段階で決めます。
+
+1. メインビジュアルを4案作る。
+2. 決まったメインビジュアルで、サイト全体を4案作る。
+
+`npm run design` で、全案のページ・スクショ・比較ページができます。`npm run design:publish` で、お客さまやメンバーに見せるURLを作れます。詳しくは [design/README.md](design/README.md) を見てください。
+
 ## OGP画像とロゴ
 
 ```bash
 npm run serve:design &
-npm run shot -- http://127.0.0.1:5482/design/og.html --sizes 1200x630 --as public/media/og.jpg
-npm run shot -- http://127.0.0.1:5482/public/media/logo.svg --sizes 512x512 --as .out/logo.png && sips -s format png .out/logo.png --out public/media/logo.png
+npm run shot -- http://127.0.0.1:5482/og.html --sizes 1200x630 --as public/media/og.jpg
+npm run shot -- http://127.0.0.1:5482/media/logo.svg --sizes 512x512 --as .out/logo.png && sips -s format png .out/logo.png --out public/media/logo.png
 ```
 
 ## 公開

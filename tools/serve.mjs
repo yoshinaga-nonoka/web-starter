@@ -1,14 +1,16 @@
-// A plain static server for checking: the built site, or the repository root for the design boards.
-// usage: node tools/serve.mjs [dir=dist] [port=5481]
+// A plain static server for checking: the built site, or the design proposals.
+// usage: node tools/serve.mjs [dirs=dist] [port=5481]     dirs: one folder, or several joined by commas (first wins)
 //   npm run serve          → dist on http://127.0.0.1:5481/ (after npm run build / build:fixture)
-//   npm run serve:design   → the repository on http://127.0.0.1:5482/ (design/hero/board.html, design/loading/board.html)
-// Folders answer with their index.html, unknown paths with dist's 404.html. Headers in public/_headers are NOT applied
-// here; use `npm run preview:headers` (wrangler) for those.
+//   npm run serve:design   → design/ over public/ on http://127.0.0.1:5482/: the proposals' gallery at /, a proposal at
+//                            /mv/a.html, and the site's own /css, /js and /media beside them, as on the real site
+// Folders answer with their index.html, unknown paths with the first folder's 404.html. Headers in public/_headers are
+// NOT applied here; use `npm run preview:headers` (wrangler) for those.
 import { createServer } from 'node:http';
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 
-const root = resolve(process.argv[2] || 'dist');
+const roots = (process.argv[2] || 'dist').split(',').map((d) => resolve(d));
+const root = roots[0];
 const port = +(process.argv[3] || 5481);
 const types = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript',
@@ -19,9 +21,14 @@ const types = {
 
 createServer((req, res) => {
   const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-  let file = normalize(join(root, path));
-  if (!file.startsWith(root)) { res.writeHead(403).end(); return; }
-  if (existsSync(file) && statSync(file).isDirectory()) file = join(file, 'index.html');
+  let file;
+  for (const r of roots) {
+    let f = normalize(join(r, path));
+    if (!f.startsWith(r)) { res.writeHead(403).end(); return; }
+    if (existsSync(f) && statSync(f).isDirectory()) f = join(f, 'index.html');
+    if (existsSync(f)) { file = f; break; }
+  }
+  file ??= join(root, path);
   let status = 200;
   if (!existsSync(file)) {
     file = join(root, '404.html');
@@ -41,4 +48,4 @@ createServer((req, res) => {
   }
   res.writeHead(status, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
   createReadStream(file).pipe(res);
-}).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/  (${root})`));
+}).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/  (${roots.join(' + ')})`));

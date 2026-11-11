@@ -5,8 +5,8 @@
 <title>OGP画像</title>
 <!-- SNSで共有されたときの画像（1200×630）。店名・ひとこと・写真を差し替えて撮る:
      npm run serve:design &
-     npm run shot -- http://127.0.0.1:5482/design/og.html --sizes 1200x630 --as public/media/og.jpg
-     ロゴの PNG（512px）: npm run shot -- http://127.0.0.1:5482/public/media/logo.svg --sizes 512x512 --as public/media/logo.png -->
+     npm run shot -- http://127.0.0.1:5482/og.html --sizes 1200x630 --as public/media/og.jpg
+     ロゴの PNG（512px）: npm run shot -- http://127.0.0.1:5482/media/logo.svg --sizes 512x512 --as public/media/logo.png -->
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
@@ -15,12 +15,12 @@
   .copy img { width: 88px; height: 88px; }
   .name { font-size: 64px; letter-spacing: .08em; margin: 0; }
   .line { font-size: 28px; color: #6f655a; margin: 0; }
-  .photo { background: url(/public/media/placeholder-hero.svg) center / cover; border-radius: 260px 260px 0 0; margin: 48px 48px 0 0; }
+  .photo { background: url(/media/placeholder-hero.svg) center / cover; border-radius: 260px 260px 0 0; margin: 48px 48px 0 0; }
 </style>
 </head>
 <body>
   <div class="copy">
-    <img src="/public/media/logo.svg" alt="">
+    <img src="/media/logo.svg" alt="">
     <p class="name">サンプル食堂</p>
     <p class="line">まちの小さな食堂</p>
   </div>
