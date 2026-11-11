@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import { ARTICLE_IMAGE_WIDTH, getAllNews, categoryOf, dateOf, imageUrl, proseHtml, sanitizeHtml, type News } from '../../lib/microcms';
+import { articleJsonLd } from '../../lib/seo';
+import { SITE } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const news = await getAllNews();
+  return news.map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props as { item: News };
+const date = dateOf(item);
+const category = categoryOf(item);
+// from the cleaned body, so nothing a script or style holds ends up in the description
+const summary = sanitizeHtml(item.content ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 110);
+---
+<Base title={`${item.title.trim()}｜${SITE.name}`} description={summary || item.title} styles={['/css/news.css']} type="article"
+  jsonLd={Astro.site && articleJsonLd(item, new URL(Astro.url.pathname, Astro.site), Astro.site)}>
+  <main id="main" class="news">
+    <div class="wrap">
+      <article class="article">
+        <p class="article__meta">
+          <time datetime={date.iso}>{date.label}</time>
+          {category && <span class="news-tag">{category}</span>}
+        </p>
+        <h1 class="article__title">{item.title}</h1>
+        {item.thumbnail && (
+          <img class="article__thumb" src={imageUrl(item.thumbnail.url, ARTICLE_IMAGE_WIDTH * 2)} alt="" width={item.thumbnail.width} height={item.thumbnail.height}>
+        )}
+        {/* the rich text written in microCMS, as its own HTML (its pictures at a reading size: news.css) */}
+        <div class="prose" set:html={proseHtml(item.content)} />
+        {item.photos && item.photos.length > 0 && (
+          <div class={`gallery${item.photos.length % 2 ? ' gallery--odd' : ''}`}>
+            {item.photos.map((photo) => (
+              <img
+                src={imageUrl(photo.url, 1200)}
+                srcset={`${imageUrl(photo.url, 600)} 600w, ${imageUrl(photo.url, 1200)} 1200w`}
+                sizes="(min-width: 760px) 720px, 100vw"
+                alt="" width={photo.width} height={photo.height} loading="lazy"
+              />
+            ))}
+          </div>
+        )}
+        <p class="article__back"><a class="link" href="/news/">お知らせ一覧へ</a></p>
+      </article>
+    </div>
+  </main>
+</Base>

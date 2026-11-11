@@ -1,0 +1,88 @@
+---
+// The top page: hero, News, Menu, About, Access. Every fact comes from src/lib/site.ts.
+// This is the starting layout: the design proposals (design/) replace the hero and the sections' composition.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import NewsSection from '../components/NewsSection.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import { getAllNews } from '../lib/microcms';
+import { homeJsonLd } from '../lib/seo';
+import { ADDRESS, HOURS, LINKS, PRIMARY_ACTION, SITE } from '../lib/site';
+
+const latest = (await getAllNews()).slice(0, 3);
+
+/** 【要差し替え】メニュー。写真は public/media/ に置き、ここのファイル名を変える */
+const MENU = [
+  { name: '日替わり定食', note: '季節の野菜をたっぷり使った、毎日変わる定食', photo: '/media/placeholder-menu-1.svg' },
+  { name: 'おにぎりセット', note: 'お味噌汁と小鉢つき', photo: '/media/placeholder-menu-2.svg' },
+  { name: 'コーヒー', note: '近所の焙煎所の豆を、一杯ずつ', photo: '/media/placeholder-menu-3.svg' },
+];
+---
+<Base title={`${SITE.name}｜${SITE.tagline}`} description={SITE.description} fonts="subset" fontText={latest.map((n) => n.title).join('')}
+  jsonLd={Astro.site && homeJsonLd(Astro.site)}>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-h">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="hero__eyebrow" data-reveal>{SITE.tagline}</p>
+          <h1 class="hero__h1" id="hero-h" data-reveal style="--i: 1">【要差し替え】<br>いつもの、<br>ちょうどいい。</h1>
+          <p class="hero__lead" data-reveal style="--i: 2">{HOURS.days} {HOURS.time}<br>{ADDRESS.access}</p>
+          <div class="btn-row" data-reveal style="--i: 3">
+            {PRIMARY_ACTION.href && <a class="btn btn--primary" href={PRIMARY_ACTION.href} target="_blank" rel="noopener"><Icon name={PRIMARY_ACTION.icon} />{PRIMARY_ACTION.label}</a>}
+            <a class="btn btn--secondary" href="#menu"><Icon name="utensils" />メニューを見る</a>
+          </div>
+        </div>
+        <div class="hero__art" data-reveal="photo">
+          <img class="frame frame--arch" src="/media/placeholder-hero.svg" alt="【要差し替え】お店の写真" width="720" height="900">
+        </div>
+      </div>
+    </section>
+
+    <NewsSection items={latest} />
+
+    <section class="section section--surface" id="menu" aria-labelledby="menu-h">
+      <div class="wrap">
+        <SectionTitle of="menu" id="menu-h" />
+        <ul class="cards">
+          {MENU.map((m, i) => (
+            <li class="card" data-reveal style={`--i: ${i}`}>
+              <img class="frame" src={m.photo} alt={m.name} width="640" height="480" loading="lazy">
+              <h3 class="card__title">{m.name}</h3>
+              <p class="card__note">{m.note}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-h">
+      <div class="wrap split split--media">
+        <div class="split__media" data-reveal="photo">
+          <img class="frame" src="/media/placeholder-about.svg" alt="【要差し替え】店内の写真" width="800" height="1000" loading="lazy">
+        </div>
+        <div class="split__body">
+          <SectionTitle of="about" id="about-h" />
+          <p class="lead" data-reveal style="--i: 1">【要差し替え】お店のはじまりや、大事にしていることを2〜3文で。お店の人が話すような言葉で書く。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--inverse" id="access" aria-labelledby="access-h">
+      <div class:list={['wrap split', !LINKS.mapEmbed && 'split--single']}>
+        <div class="split__body">
+          <SectionTitle of="access" id="access-h" />
+          <dl class="facts" data-reveal style="--i: 1">
+            <div><dt><Icon name="map-pin" />場所</dt><dd><span class="nums">〒{ADDRESS.postalCode}</span><br>{ADDRESS.region}{ADDRESS.locality}{ADDRESS.street}{ADDRESS.building && <><br>{ADDRESS.building}</>}<br><small>{ADDRESS.access}</small></dd></div>
+            <div><dt><Icon name="clock" />営業時間</dt><dd>{HOURS.days}<br><span class="nums">{HOURS.time}</span>{HOURS.note && <><br><small>{HOURS.note}</small></>}</dd></div>
+          </dl>
+          {LINKS.maps && <a class="btn btn--light" href={LINKS.maps} target="_blank" rel="noopener" data-reveal style="--i: 2"><Icon name="map-pin" />Googleマップで経路を見る</a>}
+        </div>
+        {LINKS.mapEmbed && (
+          <div class="map" data-reveal="photo">
+            <iframe src={LINKS.mapEmbed} title={`${SITE.name}の地図`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,0 +1,13 @@
+---
+// A section's title: a small mark, its English name (the header menu uses the same word), its Japanese name under it.
+// The mark is a plain circle in the accent colour; give it the site's own motif in site.css (.ttl__mark).
+import { section, type SectionId } from '../lib/site';
+
+interface Props { of: SectionId; id?: string; as?: 'h1' | 'h2' }
+const { of, id, as: Tag = 'h2' } = Astro.props;
+const { en, ja } = section(of);
+---
+<Tag class="ttl" id={id} data-reveal>
+  <span class="ttl__en"><span class="ttl__mark" aria-hidden="true"></span><span lang="en">{en}</span></span>
+  <span class="ttl__ja">{ja}</span>
+</Tag>

@@ -1,0 +1,12 @@
+---
+// A quiet looping video (no sound) with its poster and a pause button. site.js plays it whenever it is on screen
+// (iOS included) unless the visitor stopped it or stopped all motion. Make the files with tools/media/make-loop.sh.
+// <Film src="/media/hero.mp4" poster="/media/hero.webp" label="コーヒーを淹れる手元" class="frame frame--round" />
+import Icon from './Icon.astro';
+interface Props { src: string; poster: string; label: string; class?: string; width?: number; height?: number }
+const { src, poster, label, class: className, width = 720, height = 1280 } = Astro.props;
+---
+<div class:list={['film', className]}>
+  <video data-autoplay src={src} poster={poster} muted loop playsinline preload="none" width={width} height={height} aria-label={label}></video>
+  <button class="film__toggle" type="button" aria-pressed="false" aria-label="動画を一時停止"><Icon name="pause" class="film__pause" /><Icon name="play" class="film__play" /></button>
+</div>

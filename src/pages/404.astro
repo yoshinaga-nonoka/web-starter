@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+---
+<Base title={`ページが見つかりません｜${SITE.name}`} description="お探しのページは見つかりませんでした。" styles={['/css/news.css']} noindex>
+  <main id="main" class="news">
+    <div class="wrap">
+      <h1 class="news__title">ページが見つかりません</h1>
+      <p class="news__empty">URLが変わったか、ページがなくなった可能性があります。<a href="/">トップページへ</a></p>
+    </div>
+  </main>
+</Base>

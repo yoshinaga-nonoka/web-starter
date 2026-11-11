@@ -1,0 +1,11 @@
+---
+// The phone's bottom bar (under 640px): the primary action, and the second one if there is one.
+import Icon from './Icon.astro';
+import { PRIMARY_ACTION, SECONDARY_ACTION } from '../lib/site';
+---
+{PRIMARY_ACTION.href && (
+  <nav class="actionbar" aria-label="すぐに使う操作">
+    <a class="btn btn--primary" href={PRIMARY_ACTION.href} target="_blank" rel="noopener"><Icon name={PRIMARY_ACTION.icon} />{PRIMARY_ACTION.label}</a>
+    {SECONDARY_ACTION && <a class="btn btn--secondary" href={SECONDARY_ACTION.href} target="_blank" rel="noopener"><Icon name={SECONDARY_ACTION.icon} />{SECONDARY_ACTION.label}</a>}
+  </nav>
+)}

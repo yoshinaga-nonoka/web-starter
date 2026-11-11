@@ -1,0 +1,30 @@
+[
+  {
+    "id": "sample-hours",
+    "title": "12月の営業日のお知らせ",
+    "createdAt": "2026-11-08T09:00:00Z",
+    "publishedAt": "2026-11-08T09:00:00Z",
+    "category": ["営業日"],
+    "content": "<p>12月の営業日をお知らせします。</p><figure><img src=\"/media/placeholder-menu-1.svg\" alt=\"\" width=\"640\" height=\"480\"></figure><p>年末は28日まで営業します。</p>"
+  },
+  {
+    "id": "sample-closed",
+    "title": "11月15日（土）は臨時休業します",
+    "createdAt": "2026-11-05T00:00:00Z",
+    "publishedAt": "2026-11-05T00:00:00Z",
+    "category": ["営業日"],
+    "thumbnail": { "url": "/media/placeholder-about.svg", "width": 800, "height": 1000 },
+    "content": "<p>11月15日（土）はお休みします。</p>",
+    "photos": [
+      { "url": "/media/placeholder-menu-2.svg", "width": 640, "height": 480 },
+      { "url": "/media/placeholder-menu-3.svg", "width": 640, "height": 480 }
+    ]
+  },
+  {
+    "id": "sample-long",
+    "title": "とても長いタイトルのお知らせ。見出しが2行や3行になっても、レイアウトが崩れないかを確かめるための見本です",
+    "createdAt": "2026-10-28T00:00:00Z",
+    "publishedAt": "2026-10-28T00:00:00Z",
+    "content": "<h2>見出し</h2><p>本文の見本です。<a href=\"https://example.com\" target=\"_blank\">外部リンク</a></p><ul><li>箇条書き</li><li>箇条書き</li></ul><script>alert('この行は無害化で消えるはず')</script><p><a href=\"javascript:alert(1)\">危ないリンク（無害化で外れるはず）</a></p>"
+  }
+]

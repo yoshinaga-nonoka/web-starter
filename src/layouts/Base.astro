@@ -1,0 +1,76 @@
+---
+// Every page: the head (title, description, canonical, OGP, JSON-LD, fonts, the colours from THEME), the header,
+// the footer, the phone bar and the script.
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ActionBar from '../components/ActionBar.astro';
+import { fullFontsUrl, subsetFontsUrl } from '../lib/fonts';
+import { SITE, THEME } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** "subset": only the characters in the source files (the top page); "full": for text from microCMS */
+  fonts?: 'subset' | 'full';
+  /** with fonts="subset": text from microCMS shown on the page, so its characters load too */
+  fontText?: string;
+  skipTo?: string;
+  styles?: string[];
+  /** og:type: "article" for a news post */
+  type?: 'website' | 'article';
+  /** schema.org JSON-LD for the page (seo.ts) */
+  jsonLd?: object;
+  /** keep the page out of search results (the 404 page) */
+  noindex?: boolean;
+}
+const { title, description, fonts = 'full', fontText = '', skipTo = '#main', styles = [], type = 'website', jsonLd, noindex = false } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const fontsUrl = fonts === 'subset' ? subsetFontsUrl(fontText) : fullFontsUrl;
+const f = THEME.fonts;
+const tokens = `:root {
+  --bg: ${THEME.bg}; --surface: ${THEME.surface}; --ink: ${THEME.ink}; --muted: ${THEME.muted};
+  --accent: ${THEME.accent}; --accent-ink: ${THEME.accentInk}; --inv-bg: ${THEME.inverseBg}; --inv-ink: ${THEME.inverseInk};
+  --font-display: "${f.display.family}", ${f.display.fallback}; --font-text: "${f.text.family}", ${f.text.fallback};
+  --font-en: "${f.en.family}", ${f.en.fallback}; --radius: ${THEME.radius};
+}`;
+---
+<!doctype html>
+<html lang={SITE.lang}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content={description}>
+<meta name="theme-color" content={THEME.bg}>
+{noindex && <meta name="robots" content="noindex">}
+{canonical && !noindex && <link rel="canonical" href={canonical}>}
+<meta property="og:type" content={type}>
+<meta property="og:site_name" content={SITE.name}>
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+{canonical && <meta property="og:url" content={canonical}>}
+{Astro.site && <meta property="og:image" content={new URL('/media/og.jpg', Astro.site).href}>}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={SITE.name}>
+<meta name="twitter:card" content="summary_large_image">
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+<link rel="icon" href="/media/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/media/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href={fontsUrl} rel="stylesheet">
+<style is:inline set:html={tokens}></style>
+<link rel="stylesheet" href="/css/site.css">
+{styles.map((href) => <link rel="stylesheet" href={href}>)}
+<slot name="head" />
+</head>
+<body>
+<Header skipTo={skipTo} />
+<slot />
+<Footer />
+<ActionBar />
+<script is:inline defer src="/js/site.js"></script>
+</body>
+</html>

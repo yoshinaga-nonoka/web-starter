@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers (static assets): the built site in ./dist, no Worker code.
+  // name: the Worker's name on Cloudflare (change it for each site)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web-starter",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

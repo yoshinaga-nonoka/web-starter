@@ -1,0 +1,37 @@
+---
+// The top page's News: the latest posts from microCMS as a ruled list of dates and titles, beside the title.
+// The section is always there (the header menu points to it); with no posts it says so.
+import Icon from './Icon.astro';
+import SectionTitle from './SectionTitle.astro';
+import { dateOf, type News } from '../lib/microcms';
+import { LINKS } from '../lib/site';
+
+interface Props { items: News[] }
+const { items } = Astro.props;
+---
+<section class="section" id="news" aria-labelledby="news-h">
+  <div class="wrap split">
+    <div class="split__head">
+      <SectionTitle of="news" id="news-h" />
+      <a class="more" href="/news/" data-reveal style="--i: 1"><span>一覧を見る</span><span class="more__ring"><Icon name="arrow-right" /></span></a>
+    </div>
+    {items.length > 0 ? (
+      <ul class="news-rows">
+        {items.map((item, i) => {
+          const date = dateOf(item);
+          return (
+            <li data-reveal style={`--i: ${i + 1}`}>
+              <a class="news-row" href={`/news/${item.id}/`}>
+                <time class="news-row__date nums" datetime={date.iso}>{date.label}</time>
+                <span class="news-row__title">{item.title}</span>
+                <Icon name="chevron-right" />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    ) : (
+      <p class="news-empty" data-reveal>お知らせはまだありません。{LINKS.instagram && <>最新の情報は<a href={LINKS.instagram} target="_blank" rel="noopener">Instagram</a>でお知らせしています。</>}</p>
+    )}
+  </div>
+</section>

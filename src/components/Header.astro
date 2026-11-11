@@ -1,0 +1,26 @@
+---
+// The fixed header: the logo, the sections (from SECTIONS, so the menu and the page say the same thing; the one on
+// screen is marked by site.js), the primary action. Under 960px the sections fold into a full-screen menu.
+import Icon from './Icon.astro';
+import { PRIMARY_ACTION, SECTIONS, SITE, navName } from '../lib/site';
+interface Props { skipTo: string }
+const { skipTo } = Astro.props;
+const onNews = Astro.url.pathname.startsWith('/news');
+---
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip" href={skipTo}>本文へ移動</a>
+    <a class="nav__logo" href="/" aria-label={`${SITE.name} トップへ`}><img src="/media/logo.svg" alt="" width="40" height="40">{SITE.name}</a>
+    <nav class="nav__links" id="nav-links" aria-label="メイン">
+      {SECTIONS.map((s) => (
+        <a class="nav__link" href={`/#${s.id}`} data-section={s.id} aria-current={onNews && s.id === 'news' ? 'page' : undefined}>
+          <Icon name={s.icon} /><span class="nav__en" lang="en">{s.en}</span><span class="nav__ja">{navName(s)}</span>
+        </a>
+      ))}
+    </nav>
+    {PRIMARY_ACTION.href && <a class="btn btn--primary nav__action" href={PRIMARY_ACTION.href} target="_blank" rel="noopener"><Icon name={PRIMARY_ACTION.icon} />{PRIMARY_ACTION.label}</a>}
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="メニューを開く">
+      <Icon name="menu" class="nav__open" /><Icon name="x" class="nav__close" />
+    </button>
+  </div>
+</header>

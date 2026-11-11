@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import { getAllNews, categoryOf, coverOf, dateOf, imageUrl } from '../../lib/microcms';
+import { LINKS, SITE } from '../../lib/site';
+
+const news = await getAllNews();
+---
+<Base title={`お知らせ｜${SITE.name}`} description={`${SITE.name}の営業日やお休み、メニューなどのお知らせです。`} styles={['/css/news.css']}>
+  <main id="main" class="news">
+    <div class="wrap">
+      <div class="news__title"><SectionTitle of="news" as="h1" /></div>
+      {news.length === 0 ? (
+        <p class="news__empty">お知らせはまだありません。{LINKS.instagram && <>最新の情報は<a href={LINKS.instagram} target="_blank" rel="noopener">Instagram</a>でお知らせしています。</>}</p>
+      ) : (
+        <ul class="news-list">
+          {news.map((item) => {
+            const date = dateOf(item);
+            const category = categoryOf(item);
+            const cover = coverOf(item);
+            return (
+              <li>
+                <a class="news-list__item" href={`/news/${item.id}/`}>
+                  <span class="news-list__meta">
+                    <time datetime={date.iso}>{date.label}</time>
+                    {category && <span class="news-tag">{category}</span>}
+                  </span>
+                  <span class="news-list__name">{item.title}</span>
+                  {cover && (
+                    <span class="news-list__thumb"><img src={imageUrl(cover.url, 360, 240)} alt="" width="180" height="120" loading="lazy"></span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,16 @@
+# build output
+dist/
+.astro/
+node_modules/
+
+# secrets (never on GitHub)
+.env
+.env.production
+.dev.vars*
+.wrangler/
+
+# check-tool output (screenshots, recordings, temporary media)
+.out/
+
+.DS_Store
+.idea/

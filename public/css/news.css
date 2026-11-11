@@ -1,0 +1,63 @@
+/* お知らせ (list and article) and the 404 page: ordinary scrolling pages under the fixed header */
+
+.news { padding: calc(var(--nav) + var(--s-9)) 0 var(--s-9); min-height: 72svh; }
+.news__title { font-size: var(--t-h2); margin-bottom: var(--s-7); }
+.news__empty { font-size: var(--t-lead); line-height: 1.8; max-width: 36em; }
+
+/* the list: date and category, the title, an optional thumbnail; one ruled row each */
+.news-list { border-top: 1px solid var(--line); }
+.news-list__item { display: grid; grid-template-columns: 12em minmax(0, 1fr) auto; align-items: center; gap: var(--s-2) var(--s-6);
+  padding: var(--s-5) 0; border-bottom: 1px solid var(--line); color: var(--ink); }
+.news-list__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); color: var(--muted); font-size: var(--t-small); }
+.news-list__name { font-size: var(--t-lead); font-weight: 500; line-height: 1.6; text-decoration: underline; text-decoration-color: transparent;
+  text-underline-offset: 5px; transition: text-decoration-color 140ms; }
+.news-list__item:hover .news-list__name { text-decoration-color: currentColor; }
+.news-list__thumb { width: 180px; aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface); }
+.news-list__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
+.news-list__item:hover .news-list__thumb img { transform: scale(1.03); }
+
+/* an article */
+.article { max-width: 720px; }
+.article__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); color: var(--muted); font-size: var(--t-small); }
+.article__title { font-size: var(--t-h2); line-height: 1.4; margin: var(--s-4) 0 var(--s-7); }
+/* an article's pictures (the top one and those in the text): 480px wide at most, never cropped; a tall one stops at
+   three quarters of the screen. The words keep the full column */
+.article__thumb, .prose img { display: block; width: min(100%, 480px); height: auto; max-height: 75svh;
+  object-fit: contain; object-position: left top; }
+.article__thumb { margin-bottom: var(--s-7); }
+.prose figure { margin: 0; }
+.prose figure + *, .prose * + figure { margin-top: 1.6em; }
+.article__back { margin-top: var(--s-8); }
+
+/* the photographs posted with an article: two a row, an odd first one across */
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-7); }
+.gallery > img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.gallery--odd > img:first-child { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
+
+/* the rich text from microCMS */
+.prose { font-size: 17px; line-height: 1.95; }
+.prose > * + * { margin-top: 1.2em; }
+.prose h2 { font-size: var(--t-h3); line-height: 1.5; margin-top: 2em; }
+.prose h3 { font-size: 20px; line-height: 1.5; margin-top: 1.8em; }
+.prose a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.prose a:hover { text-decoration-color: currentColor; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose blockquote { padding-left: var(--s-5); border-left: 2px solid var(--line-strong); color: var(--muted); }
+.prose hr { border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 639px) {
+  .news { padding-top: calc(var(--nav) + var(--s-8)); }
+  .news-list__item { grid-template-columns: minmax(0, 1fr); }
+  .news-list__thumb { display: none; }
+  .prose { font-size: 16px; }
+  .gallery { grid-template-columns: minmax(0, 1fr); }
+  .gallery > img, .gallery--odd > img:first-child { aspect-ratio: auto; height: auto; }
+}
+
+.news__empty a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; transition: text-decoration-color 140ms; }
+.news__empty a:hover { text-decoration-color: currentColor; }
+
+/* rounded like the top page's photographs */
+.news-list__thumb, .gallery > img, .article__thumb, .prose img { border-radius: calc(var(--radius) * .75); }

@@ -1,0 +1,31 @@
+{
+  "name": "web-starter",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:fixture": "NEWS_FIXTURE=1 astro build",
+    "preview": "astro preview",
+    "preview:headers": "wrangler dev --port 8788",
+    "serve": "node tools/serve.mjs dist 5481",
+    "serve:design": "node tools/serve.mjs . 5482",
+    "shot": "node tools/browser/shot.mjs",
+    "measure": "node tools/browser/measure.mjs",
+    "record": "node tools/browser/record.mjs",
+    "audit": "node tools/browser/audit.mjs",
+    "check:films": "node tools/browser/checks/films.mjs",
+    "check:ready": "node tools/check-ready.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.4.7"
+  },
+  "devDependencies": {
+    "wrangler": "^4.158.0"
+  }
+}

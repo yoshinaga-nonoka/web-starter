@@ -1,0 +1,42 @@
+---
+// The footer on every page: the business, the hours and the links, and the switch that stops all motion.
+import Icon from './Icon.astro';
+import { ADDRESS, HOURS, LINKS, SECTIONS, SITE } from '../lib/site';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="nav__logo" href="/"><img src="/media/logo.svg" alt="" width="40" height="40" loading="lazy">{SITE.name}</a>
+        <p class="footer__lede">{SITE.tagline}</p>
+      </div>
+      <div class="footer__col">
+        <h4>場所</h4>
+        <ul>
+          <li class="nums">〒{ADDRESS.postalCode}</li>
+          <li>{ADDRESS.region}{ADDRESS.locality}<br>{ADDRESS.street}</li>
+          {ADDRESS.building && <li>{ADDRESS.building}</li>}
+          <li>{ADDRESS.access}</li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>営業</h4>
+        <ul>
+          <li>{HOURS.days}</li>
+          <li class="nums">{HOURS.time}{HOURS.note && `（${HOURS.note}）`}</li>
+          {LINKS.tel && <li><a href={`tel:${LINKS.tel}`}><Icon name="phone" />{LINKS.tel}</a></li>}
+          {LINKS.instagram && <li><a href={LINKS.instagram} target="_blank" rel="noopener"><Icon name="instagram" />Instagram</a></li>}
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>ページ</h4>
+        <ul class="footer__pages">{SECTIONS.map((s) => <li><a href={`/#${s.id}`}><span lang="en">{s.en}</span><small>{s.ja}</small></a></li>)}</ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>&copy; {year} {SITE.name}</span>
+      <button class="motion-toggle" type="button" aria-pressed="false" data-motion-toggle>動きを止める</button>
+    </div>
+  </div>
+</footer>
